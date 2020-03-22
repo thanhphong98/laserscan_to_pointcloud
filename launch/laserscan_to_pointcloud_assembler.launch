@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 	<!-- Several input sensor_msgs/LaserScan topics can be specified using the + separator, example: [front_scan+back_scan] -->
-	<arg name="laser_scan_topics" default="laser_scan" />
+	<arg name="laser_scan_topics" default="scan" />
 	
 	<!-- The assembled point cloud will be published as a sensor_msgs/PointCloud2 topic -->
 	<!-- A new point cloud will be published when these conditions are reached:
 	    ([number_of_scans_to_assemble_per_cloud] or [timeout_for_cloud_assembly]) and [assembled_point_cloud_not_empty] -->
 	<!-- If -[enforce_reception_of_laser_scans_in_all_topics] is true, the point cloud will only be assembled after the laser scan map data structure receives msgs from all the laser sensors -->
 	<!-- Check the parameters documentation below -->
-	<arg name="pointcloud_publish_topic" default="ambient_pointcloud" />
+	<arg name="pointcloud_publish_topic" default="/sensor/lidar/cloud_euclidean" />
 	
 	<!-- If true, a map data structure will be created and updated with new incoming laser scans. If the lasers operate at different rate, the map will store the latest msg of each laser topic -->
 	<!-- The assembled point cloud will only be published after the map reaches the size of the laser scan topics vector -->
@@ -48,7 +48,7 @@
 	If your really need to assemble the point cloud in a frame with discrete jumps and also need distortion correction using spherical linear interpolation, then you should specify the auxiliary TF chain for motion estimation.
 	This auxiliary TF chain must have smooth evolution over time (if it is not smooth or the motion estimation is not reliable, then its better to disable the distortion correction algorithms).
 	The recommended frame is odom, published by a well calibrated odometry node receiving data from good wheel encoders. -->
-	<arg name="target_frame" default="odom" />
+	<arg name="target_frame" default="base_scan" />
 	
 	<arg name="motion_estimation_source_frame_id" default="" /> <!-- For example: base_footprint -->
 	<arg name="motion_estimation_target_frame_id" default="" /> <!-- For example: odom -->
